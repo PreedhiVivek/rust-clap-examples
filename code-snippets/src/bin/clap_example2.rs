@@ -1,14 +1,16 @@
 /*
-    A simple program prompting for login credentials, showing
-        - mandatory and optional CLI arguments
+    A simple program showing
+        - usage of mandatory and optional CLI arguments
         - defining short and long argument flags
 */
 use clap::Parser;
+use std::env;
 
-///Enter Login Credentials
+///Login validation
+
 #[derive(Parser, Debug)]
 struct Args {
-    /// User Name
+    /// User Name - optional argument
     #[arg(short = 'n', long ="UserName", default_value = "Qxf2")]
     user_name: String,
 
@@ -20,5 +22,18 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    println!("Welcome to {}!", args.user_name)
+    let expected_password = match env::var("APP_PASSWORD") {
+        Ok(val) => val,
+        Err(_) => {
+            println!("Password not set as an environment variable!");
+            return;
+        }
+    };
+
+    if args.password == expected_password{
+        println!("Welcome to {}!", args.user_name);
+    }
+    else {
+        println!("Password mismatch for user: {}! \nLogin failed!", args.user_name);
+    }
 }
