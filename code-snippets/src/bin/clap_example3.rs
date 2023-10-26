@@ -3,7 +3,7 @@
         - grouping of command-line arguments
 */
 
-use clap::{Command, Arg, ArgAction, ArgGroup};
+use clap::{Command, Arg, ArgGroup};
 
 fn main() {
     // Build the CLI by defining the configuration using builder pattern
@@ -14,18 +14,23 @@ fn main() {
             Arg::new("number")
                 .short('n')
                 .long("number")
-                .action(ArgAction::Set)
+                .num_args(1)
+                .value_parser(clap::value_parser!(i32))
                 .required(true)
         )
         .arg(
             Arg::new("square")
                 .short('s')
                 .long("square")
+                .required(false)
+                .num_args(0) 
         )
         .arg(
             Arg::new("cube")
                 .short('c')
                 .long("cube")
+                .required(false)
+                .num_args(0) 
         )
         .group(
             ArgGroup::new("operation")
