@@ -22,19 +22,17 @@ fn main() {
             Arg::new("square")
                 .short('s')
                 .long("square")
-                .required(false)
-                .num_args(0) 
+                .num_args(0)
         )
         .arg(
             Arg::new("cube")
                 .short('c')
                 .long("cube")
-                .required(false)
-                .num_args(0) 
+                .num_args(0)
         )
         .group(
             ArgGroup::new("operation")
-                .args(&["square", "cube"])
+                .args(["square", "cube"])
                 .required(true)
         );
 
@@ -47,9 +45,10 @@ fn main() {
         None => &0,
     };
 
-    if matches.contains_id("square") {
-        println!("Square of {} is: {}", no, no * no);
-    } else if matches.contains_id("cube") {
+    if matches.index_of("cube") == Some(3){
         println!("Cube of {} is: {}", no, no * no * no);
+    }
+    else if matches.index_of("square") == Some(3){
+        println!("Square of {} is: {}", no, no * no);
     }
 }
