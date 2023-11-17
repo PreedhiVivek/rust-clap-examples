@@ -9,11 +9,19 @@ Please note: Cargo comes pre-installed with the official Rust installer.
 
 Run the clap examples:
 1. Move to the root directory that contains the binary i.e `code-snippets`
-2. Execute command : `cargo run --bin <binaryFilename> <positionalArguments> -- <optionName> <optionValue>`
-sample run commands:
-for options with arguments
+2. Execute command :
+   `cargo run --bin <binaryFilename> <positionalArguments> -- <optionName> <optionValue>`
+
+Sample run commands:
+
+(1) for options with arguments
+
 `cargo run --bin clap_example1 -- -n 5`
-for positional arguments
+
+(2) for positional arguments
+
 `cargo run --bin clap_example5 2`
-for positional arguments and boolean options
+
+(3) for positional arguments and boolean options
+
 `cargo run --bin clap_example5 5 --square`
