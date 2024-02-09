@@ -2,7 +2,6 @@
     A CLI application showing
         - grouping of command-line arguments
 */
-
 use clap::{Command, Arg, ArgGroup};
 
 fn main() {
@@ -38,17 +37,27 @@ fn main() {
 
     // Runtime argument parsing
     let matches = cmd.get_matches();
-    let number = matches.get_one("number");
 
-    let no = match number {
-        Some(number) => number,
+    // Parse and store the number passed
+    let number_passed = matches.get_one("number");
+    let number = match number_passed {
+        Some(number_passed) => number_passed,
         None => &0,
     };
 
-    if matches.index_of("cube") == Some(3){
-        println!("Cube of {} is: {}", no, no * no * no);
+    // Collect all the arguments passed into a Vector
+    let arguments = matches.ids()
+            .map(|id| id.as_str())
+            .collect::<Vec<_>>();
+
+    //Iterate over the vector to find the chosen operation
+    let cube_index = arguments.iter().position(|&val| val == "cube");
+    let square_index = arguments.iter().position(|&val| val == "square");
+
+    if cube_index < square_index {
+        println!("Cube of {} is: {}", number, number * number * number);
     }
-    else if matches.index_of("square") == Some(3){
-        println!("Square of {} is: {}", no, no * no);
+    else{
+        println!("Square of {} is: {}", number, number * number);
     }
 }
