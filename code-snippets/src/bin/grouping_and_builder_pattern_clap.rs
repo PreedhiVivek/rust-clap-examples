@@ -45,10 +45,9 @@ fn main() {
         None => &0,
     };
 
-    if matches.index_of("cube") == Some(3){
+    if let Some(true) = matches.get_one("cube") {
         println!("Cube of {} is: {}", no, no * no * no);
-    }
-    else if matches.index_of("square") == Some(3){
+    } else if let Some(true) = matches.get_one("square") {
         println!("Square of {} is: {}", no, no * no);
     }
 }
