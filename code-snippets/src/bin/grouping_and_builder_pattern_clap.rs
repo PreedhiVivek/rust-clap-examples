@@ -2,7 +2,6 @@
     A CLI application showing
         - grouping of command-line arguments
 */
-
 use clap::{Command, Arg, ArgGroup};
 
 fn main() {
@@ -38,16 +37,14 @@ fn main() {
 
     // Runtime argument parsing
     let matches = cmd.get_matches();
-    let number = matches.get_one("number");
-
-    let no = match number {
-        Some(number) => number,
+    let number_passed = matches.get_one("number");
+    let number = match number_passed {
+        Some(number_passed) => number_passed,
         None => &0,
     };
-
     if let Some(true) = matches.get_one("cube") {
-        println!("Cube of {} is: {}", no, no * no * no);
+        println!("Cube of {} is: {}", number, number * number * number);
     } else if let Some(true) = matches.get_one("square") {
-        println!("Square of {} is: {}", no, no * no);
+        println!("Square of {} is: {}", number, number * number);
     }
 }
